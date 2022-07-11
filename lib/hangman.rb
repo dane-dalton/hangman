@@ -1,3 +1,4 @@
+require 'yaml'
 require_relative 'display.rb'
 
 class Game
@@ -16,8 +17,10 @@ class Game
 
   def play
     welcome()
+    load_game?()
     until (game_over?(self.incorrect_counter))
       board(self.incorrect_counter, self.current_word, self.guess_bank)
+      save_game?()
       self.guess_bank.push(make_guess())
       self.current_word, self.incorrect_counter = calc_guess(self.guess_bank[-1], self.current_word, self.secret_word, self.incorrect_counter)
       if winner?(self.current_word, self.secret_word)
@@ -42,6 +45,32 @@ class Game
     end
   end
 
+  def save_game?
+    invalid = true
+    puts "Would you like to save your game? (y/n) "
+    while invalid
+      y_or_n = gets.chomp.downcase
+      invalid = false if y_or_n.match(/^[yn]$/)
+    end
+    if y_or_n == "y"
+      Game.to_yaml
+      return true
+    else
+      return false
+    end
+  end
+
+  def self.to_yaml
+    save_file = "hangman_save/save_data"
+    File.open(save_file, "w") do |file|
+      file.puts YAML.dump(self)
+    end
+  end
+
+  def self.from_yaml
+    data = YAML.load File.read("hangman_save/save_data")
+    self.new(data[:secret_word], data[:incorrect_counter], data[:guess_bank], data[:current_word])
+  end
 end
 
 game = Game.new()
