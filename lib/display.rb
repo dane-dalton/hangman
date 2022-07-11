@@ -17,6 +17,14 @@ module Display
     puts "\n\n"
   end
 
+  def winner_display
+    puts "Congrats! You've correctly guessed the computer's word!"
+  end
+
+  def loser_display(word)
+    puts "Sorry, but you were not able to figure out the word #{word}."
+  end
+
   def make_guess
     invalid = true
     puts "Guess a letter: "
@@ -29,5 +37,9 @@ module Display
       end
     end
     return letter
+  end
+
+  def calc_guess(guess, current_word, correct_word)
+    current_word = current_word.each_with_index { |letter, i| letter = guess if guess == correct_word[i] }
   end
 end
