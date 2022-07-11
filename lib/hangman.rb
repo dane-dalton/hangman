@@ -19,14 +19,13 @@ class Game
     until (game_over?(self.incorrect_counter))
       board(self.incorrect_counter, self.current_word, self.guess_bank)
       self.guess_bank.push(make_guess())
-      self.current_word = calc_guess(self.guess_bank[-1], self.current_word, self.secret_word)
-      if winner?(self.current_word, self.correct_word)
-        winner_display()
+      self.current_word, self.incorrect_counter = calc_guess(self.guess_bank[-1], self.current_word, self.secret_word, self.incorrect_counter)
+      if winner?(self.current_word, self.secret_word)
+        winner_display(self.secret_word)
         break
       end
-      self.incorrect_counter -= 1
     end
-    if game_over?(self.incorrect_counter)
+    unless winner?(self.current_word, self.secret_word)
       loser_display(self.secret_word.join(''))
     end
   end

@@ -5,7 +5,7 @@ module Display
   end
 
   def board(correct, word, guesses)
-    puts "You have #{correct} misses left...\n"
+    puts "\nYou have #{correct} misses left...\n"
     word.each do |letter|
       print "#{letter} "
     end
@@ -17,12 +17,12 @@ module Display
     puts "\n\n"
   end
 
-  def winner_display
-    puts "Congrats! You've correctly guessed the computer's word!"
+  def winner_display(word)
+    puts "\nCongrats! You've correctly guessed the computer's word, '#{word}'!"
   end
 
   def loser_display(word)
-    puts "Sorry, but you were not able to figure out the word #{word}."
+    puts "\nSorry, but you were not able to figure out the word '#{word}'."
   end
 
   def make_guess
@@ -30,7 +30,7 @@ module Display
     puts "Guess a letter: "
     while (invalid) do
       letter = gets.chomp.downcase
-      if letter == /[a-z]/
+      if letter.match(/[a-z]/)
         invalid = false
       else
         puts "Please input a single character."
@@ -39,7 +39,23 @@ module Display
     return letter
   end
 
-  def calc_guess(guess, current_word, correct_word)
-    current_word = current_word.each_with_index { |letter, i| letter = guess if guess == correct_word[i] }
+  def calc_guess(guess, current_word, correct_word, counter)
+    keep_counter = false
+    current_word = current_word.each_with_index.map do |letter, i|
+      if letter == "_"
+        if guess == correct_word[i]
+          keep_counter = true
+          letter = guess
+        else
+          letter = "_"
+        end
+      else
+        letter = letter
+      end
+    end
+    unless keep_counter
+      counter -= 1
+    end
+    return [current_word, counter]
   end
 end
