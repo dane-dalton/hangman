@@ -21,7 +21,7 @@ class Game
       self.guess_bank.push(make_guess())
       self.current_word, self.incorrect_counter = calc_guess(self.guess_bank[-1], self.current_word, self.secret_word, self.incorrect_counter)
       if winner?(self.current_word, self.secret_word)
-        winner_display(self.secret_word)
+        winner_display(self.secret_word.join(''))
         break
       end
     end

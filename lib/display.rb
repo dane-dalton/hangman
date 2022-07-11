@@ -30,7 +30,7 @@ module Display
     puts "Guess a letter: "
     while (invalid) do
       letter = gets.chomp.downcase
-      if letter.match(/[a-z]/)
+      if letter.match(/^[a-z]$/)
         invalid = false
       else
         puts "Please input a single character."
