@@ -96,4 +96,4 @@ class Game
 end
 
 game = Game.new()
-puts game.play
+game.play
