@@ -23,7 +23,6 @@ class Game
     load_game?()
     until (game_over?(self.incorrect_counter))
       board(self.incorrect_counter, self.current_word, self.guess_bank)
-      # save_display() if save_game?()
       self.guess_bank.push(make_guess())
       self.current_word, self.incorrect_counter = calc_guess(self.guess_bank[-1], self.current_word, self.secret_word, self.incorrect_counter)
       if winner?(self.current_word, self.secret_word)
@@ -92,8 +91,7 @@ class Game
 
   def self.from_yaml
     data = YAML.load(File.read("hangman_save/save_data"))
-    p data
-    self.new(data[:secret_word], data[:incorrect_counter], data[:guess_bank], data[:current_word])
+    self.new(data[:secret_word], data[:incorrect_counter], data[:guess_bank], data[:current_word]).play
   end
 end
 
