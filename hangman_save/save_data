@@ -1,1 +1,28 @@
---- !ruby/class 'Game'
+---
+:secret_word:
+- u
+- "n"
+- d
+- e
+- r
+- l
+- "y"
+- i
+- "n"
+- g
+:incorrect_counter: 5
+:guess_bank:
+- a
+- e
+- i
+:current_word:
+- _
+- _
+- _
+- e
+- _
+- _
+- _
+- i
+- _
+- _

@@ -1,7 +1,10 @@
 module Display
 
+  WORD_BANK = File.open('dictionary.txt').readlines.map { |line| line.chomp }
+  MODIFIED_BANK = WORD_BANK.select { |word| word.length >= 5 && word.length <= 12 }
+
   def welcome
-    puts "Welcome to Hangman! Guess letters to figure out the computer's word.\n"
+    puts "Welcome to Hangman! Guess letters to figure out the computer's word. If you would like to save your game, please write 'save' as your guess.\n"
   end
 
   def board(correct, word, guesses)
@@ -27,11 +30,14 @@ module Display
 
   def make_guess
     invalid = true
-    puts "Guess a letter: "
     while (invalid) do
+      puts "Guess a letter: "
       letter = gets.chomp.downcase
       if letter.match(/^[a-z]$/)
         invalid = false
+      elsif letter.match(/^save$/)
+        save_game?()
+        puts "Game saved."
       else
         puts "Please input a single character."
       end
