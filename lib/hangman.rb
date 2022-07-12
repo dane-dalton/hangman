@@ -16,6 +16,7 @@ class Game
     @incorrect_counter = incorrect_counter
     @guess_bank = guess_bank
     @current_word = current_word
+    self.play
   end
 
   def play
@@ -71,6 +72,8 @@ class Game
     end
     if y_or_n == "y"
       Game.from_yaml()
+      self.incorrect_counter = 0
+      self.current_word = self.secret_word
       return true
     else
       return false
@@ -91,9 +94,8 @@ class Game
 
   def self.from_yaml
     data = YAML.load(File.read("hangman_save/save_data"))
-    self.new(data[:secret_word], data[:incorrect_counter], data[:guess_bank], data[:current_word]).play
+    self.new(data[:secret_word], data[:incorrect_counter], data[:guess_bank], data[:current_word])
   end
 end
 
 game = Game.new()
-game.play
