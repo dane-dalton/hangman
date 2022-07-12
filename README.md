@@ -6,3 +6,5 @@ A game of Hangman written in Ruby with game saves, played against a computer tha
 -You get 6 incorrect guesses before you lose the game
 
 -Type 'save' as your guess at any time to save your progress
+
+Try out my game on Replit! https://replit.com/@DaneD1/hangman#README.md
